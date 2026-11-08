@@ -1,0 +1,44 @@
+name: build
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pyinstaller
+      - name: Build
+        run: >
+          pyinstaller --noconfirm --clean --onefile --windowed --name Chronicord
+          --icon assets/icon.ico --add-data "assets;assets" main.py
+      - name: Checksum
+        shell: pwsh
+        run: |
+          $h = (Get-FileHash dist/Chronicord.exe -Algorithm SHA256).Hash
+          "$h  Chronicord.exe" | Out-File -Encoding ascii dist/SHA256SUMS.txt
+          Get-Content dist/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Chronicord-windows
+          path: dist/*
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/Chronicord.exe
+            dist/SHA256SUMS.txt
+          generate_release_notes: true
