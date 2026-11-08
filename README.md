@@ -8,6 +8,13 @@ A free Windows app that saves Discord channel history **using your own bot** —
 
 No sign-up, no ads, no telemetry. Open source, MIT license.
 
+# Why Chronicord if there is a DiscordChatExporter?
+
+To use DiscordChatExporter, the developer has set strange rules of the game: either you agree that Russia is the aggressor, or you are the aggressor.
+They don't care what the motives of the people who use this program are. They don't care what their interpretation of the political situation in the world might entail, they're just playing with you to satisfy their own ego.
+My goal is to show that it's not your fault that you were born in a country. You don't have to apologize to anyone, confirm anything, or kneel down just because your government makes the choice for you.
+Enjoy using the program, if something does not work or requires improvements, please let us know!
+
 ## Features
 
 - A window to pick servers, categories and channels with checkboxes
